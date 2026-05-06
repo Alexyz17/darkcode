@@ -4,7 +4,7 @@ nixPkgs = ["php83", "php83Extensions.pdo", "php83Extensions.pdo_pgsql", "php83Ex
 [phases.install]
 cmds = [
   "composer install --no-dev --optimize-autoloader --no-interaction",
-  "npm ci"
+  "npm install"
 ]
 
 [phases.build]
