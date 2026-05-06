@@ -26,5 +26,6 @@ Homestead.json
 Homestead.yaml
 Thumbs.db
 
-# PDFs source (keep compiled versions in storage)
-recursos-pdf/*.md
+# PDFs — subir manualmente al servidor, no incluir en git
+recursos-pdf/
+storage/app/downloads/
