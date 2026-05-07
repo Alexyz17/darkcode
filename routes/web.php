@@ -5,6 +5,7 @@ use Inertia\Inertia;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\DownloadController;
+use App\Http\Controllers\GumroadWebhookController;
 use App\Http\Middleware\AdminMiddleware;
 
 Route::get('/', fn () => Inertia::render('Home'));
@@ -35,6 +36,10 @@ Route::get('/contenido', fn () => Inertia::render('Content'));
 Route::get('/beta', fn () => Inertia::render('Beta'));
 Route::get('/productos', fn () => Inertia::render('Productos'));
 Route::get('/apoya', fn () => Inertia::render('Apoya'));
+
+// Webhooks (sin CSRF)
+Route::post('/webhooks/gumroad', [GumroadWebhookController::class, 'handle'])
+    ->withoutMiddleware([\Illuminate\Foundation\Http\Middleware\VerifyCsrfToken::class]);
 
 // Legal
 Route::get('/privacidad', fn () => Inertia::render('Privacidad'));
