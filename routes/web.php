@@ -37,6 +37,23 @@ Route::get('/beta', fn () => Inertia::render('Beta'));
 Route::get('/productos', fn () => Inertia::render('Productos'));
 Route::get('/apoya', fn () => Inertia::render('Apoya'));
 
+// Catálogo de cursos
+Route::get('/cursos', fn () => Inertia::render('Courses/Index'))->name('cursos');
+
+// Lecciones gratuitas
+Route::prefix('lecciones')->name('lecciones.')->group(function () {
+    Route::get('/linux-esencial',  fn () => Inertia::render('Lecciones/LinuxEsencial'))->name('linux-esencial');
+    Route::get('/comandos-linux',  fn () => Inertia::render('Lecciones/ComandosLinux'))->name('comandos-linux');
+    Route::get('/shell-scripting', fn () => Inertia::render('Lecciones/ShellScripting'))->name('shell-scripting');
+    Route::get('/laravel',         fn () => Inertia::render('Lecciones/LaravelPrimeros'))->name('laravel');
+    Route::get('/seguridad-web',   fn () => Inertia::render('Lecciones/SeguridadWeb'))->name('seguridad-web');
+
+    // Lecciones premium (teaser para no suscritos)
+    Route::get('/docker',          fn () => Inertia::render('Lecciones/DockerTeaser'))->name('docker');
+    Route::get('/n8n',             fn () => Inertia::render('Lecciones/N8nTeaser'))->name('n8n');
+    Route::get('/ia-programacion', fn () => Inertia::render('Lecciones/IATeaser'))->name('ia-programacion');
+});
+
 // Webhooks (sin CSRF)
 Route::post('/webhooks/gumroad', [GumroadWebhookController::class, 'handle'])
     ->withoutMiddleware([\Illuminate\Foundation\Http\Middleware\VerifyCsrfToken::class]);

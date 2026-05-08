@@ -9,4 +9,5 @@ export interface User {
 export interface SharedProps {
     auth: { user: User | null };
     flash: { success?: string; error?: string };
+    [key: string]: unknown;
 }
