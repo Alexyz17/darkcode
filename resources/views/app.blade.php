@@ -42,8 +42,8 @@
         {{-- ── JSON-LD: EducationalOrganization ── --}}
         <script type="application/ld+json">
         {
-            "@context": "https://schema.org",
-            "@type": "EducationalOrganization",
+            "@@context": "https://schema.org",
+            "@@type": "EducationalOrganization",
             "name": "DarkCode",
             "description": "Plataforma educativa de IA, programación, Linux y DevOps con proyectos reales",
             "url": "{{ config('app.url') }}",
@@ -51,7 +51,7 @@
             "foundingDate": "2025",
             "inLanguage": ["es", "en", "ca"],
             "offers": {
-                "@type": "Offer",
+                "@@type": "Offer",
                 "name": "Beta Access DarkCode",
                 "price": "19",
                 "priceCurrency": "EUR",
@@ -59,16 +59,16 @@
                 "description": "Acceso de por vida a todo el contenido premium de DarkCode"
             },
             "hasCourse": [
-                { "@type": "Course", "name": "Introducción a Linux", "courseMode": "online", "isAccessibleForFree": true },
-                { "@type": "Course", "name": "Comandos Linux esenciales", "courseMode": "online", "isAccessibleForFree": true },
-                { "@type": "Course", "name": "Shell scripting con Bash", "courseMode": "online", "isAccessibleForFree": true },
-                { "@type": "Course", "name": "Primeros pasos con Laravel", "courseMode": "online", "isAccessibleForFree": true },
-                { "@type": "Course", "name": "Seguridad básica en la web", "courseMode": "online", "isAccessibleForFree": true },
-                { "@type": "Course", "name": "Eloquent ORM avanzado", "courseMode": "online", "isAccessibleForFree": false },
-                { "@type": "Course", "name": "APIs REST con Laravel", "courseMode": "online", "isAccessibleForFree": false },
-                { "@type": "Course", "name": "Programación con IA", "courseMode": "online", "isAccessibleForFree": false },
-                { "@type": "Course", "name": "Docker desde cero", "courseMode": "online", "isAccessibleForFree": false },
-                { "@type": "Course", "name": "Automatiza con n8n", "courseMode": "online", "isAccessibleForFree": false }
+                { "@@type": "Course", "name": "Introducción a Linux", "courseMode": "online", "isAccessibleForFree": true },
+                { "@@type": "Course", "name": "Comandos Linux esenciales", "courseMode": "online", "isAccessibleForFree": true },
+                { "@@type": "Course", "name": "Shell scripting con Bash", "courseMode": "online", "isAccessibleForFree": true },
+                { "@@type": "Course", "name": "Primeros pasos con Laravel", "courseMode": "online", "isAccessibleForFree": true },
+                { "@@type": "Course", "name": "Seguridad básica en la web", "courseMode": "online", "isAccessibleForFree": true },
+                { "@@type": "Course", "name": "Eloquent ORM avanzado", "courseMode": "online", "isAccessibleForFree": false },
+                { "@@type": "Course", "name": "APIs REST con Laravel", "courseMode": "online", "isAccessibleForFree": false },
+                { "@@type": "Course", "name": "Programación con IA", "courseMode": "online", "isAccessibleForFree": false },
+                { "@@type": "Course", "name": "Docker desde cero", "courseMode": "online", "isAccessibleForFree": false },
+                { "@@type": "Course", "name": "Automatiza con n8n", "courseMode": "online", "isAccessibleForFree": false }
             ]
         }
         </script>
@@ -76,14 +76,14 @@
         {{-- ── JSON-LD: WebSite con sitelinks search ── --}}
         <script type="application/ld+json">
         {
-            "@context": "https://schema.org",
-            "@type": "WebSite",
+            "@@context": "https://schema.org",
+            "@@type": "WebSite",
             "name": "DarkCode",
             "url": "{{ config('app.url') }}",
             "potentialAction": {
-                "@type": "SearchAction",
+                "@@type": "SearchAction",
                 "target": {
-                    "@type": "EntryPoint",
+                    "@@type": "EntryPoint",
                     "urlTemplate": "{{ config('app.url') }}/cursos?q={search_term_string}"
                 },
                 "query-input": "required name=search_term_string"
