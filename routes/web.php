@@ -48,10 +48,21 @@ Route::prefix('lecciones')->name('lecciones.')->group(function () {
     Route::get('/laravel',         fn () => Inertia::render('Lecciones/LaravelPrimeros'))->name('laravel');
     Route::get('/seguridad-web',   fn () => Inertia::render('Lecciones/SeguridadWeb'))->name('seguridad-web');
 
-    // Lecciones premium (teaser para no suscritos)
-    Route::get('/docker',          fn () => Inertia::render('Lecciones/DockerTeaser'))->name('docker');
-    Route::get('/n8n',             fn () => Inertia::render('Lecciones/N8nTeaser'))->name('n8n');
-    Route::get('/ia-programacion', fn () => Inertia::render('Lecciones/IATeaser'))->name('ia-programacion');
+    // Lecciones premium — contenido completo para premium/admin, teaser para el resto
+    Route::get('/docker', function () {
+        $isPremium = auth()->check() && in_array(auth()->user()->role, ['premium', 'admin']);
+        return Inertia::render($isPremium ? 'Lecciones/Docker' : 'Lecciones/DockerTeaser');
+    })->name('docker');
+
+    Route::get('/n8n', function () {
+        $isPremium = auth()->check() && in_array(auth()->user()->role, ['premium', 'admin']);
+        return Inertia::render($isPremium ? 'Lecciones/N8n' : 'Lecciones/N8nTeaser');
+    })->name('n8n');
+
+    Route::get('/ia-programacion', function () {
+        $isPremium = auth()->check() && in_array(auth()->user()->role, ['premium', 'admin']);
+        return Inertia::render($isPremium ? 'Lecciones/IAProgramacion' : 'Lecciones/IATeaser');
+    })->name('ia-programacion');
 });
 
 // Webhooks (sin CSRF)
