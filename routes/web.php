@@ -63,11 +63,28 @@ Route::prefix('lecciones')->name('lecciones.')->group(function () {
         $isPremium = auth()->check() && in_array(auth()->user()->role, ['premium', 'admin']);
         return Inertia::render($isPremium ? 'Lecciones/IAProgramacion' : 'Lecciones/IATeaser');
     })->name('ia-programacion');
+
+    Route::get('/eloquent',           fn () => Inertia::render('Lecciones/EloquentTeaser'))->name('eloquent');
+    Route::get('/apis-rest',          fn () => Inertia::render('Lecciones/ApisRestTeaser'))->name('apis-rest');
+    Route::get('/maquinas-virtuales', fn () => Inertia::render('Lecciones/MaquinasVirtualesTeaser'))->name('maquinas-virtuales');
+    Route::get('/fine-tuning',        fn () => Inertia::render('Lecciones/FineTuningTeaser'))->name('fine-tuning');
 });
 
 // Webhooks (sin CSRF)
 Route::post('/webhooks/gumroad', [GumroadWebhookController::class, 'handle'])
     ->withoutMiddleware([\Illuminate\Foundation\Http\Middleware\VerifyCsrfToken::class]);
+
+// Sitemap
+Route::get('/sitemap.xml', function () {
+    $lecciones = [
+        'linux-esencial', 'comandos-linux', 'shell-scripting', 'laravel', 'seguridad-web',
+        'docker', 'n8n', 'ia-programacion',
+        'eloquent', 'apis-rest', 'maquinas-virtuales', 'fine-tuning',
+    ];
+    return response()
+        ->view('sitemap', compact('lecciones'))
+        ->header('Content-Type', 'application/xml');
+})->name('sitemap');
 
 // Legal
 Route::get('/privacidad', fn () => Inertia::render('Privacidad'));

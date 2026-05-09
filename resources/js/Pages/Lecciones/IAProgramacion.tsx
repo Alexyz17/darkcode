@@ -24,6 +24,7 @@ export default function IAProgramacion() {
             modules={modules}
             activeModule="/lecciones/ia-programacion"
             category="IA & Automatización"
+            allUnlocked={true}
         >
             <Head>
                 <title>IA aplicada a la programación — DarkCode Premium</title>

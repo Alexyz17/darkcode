@@ -24,6 +24,7 @@ export default function Docker() {
             modules={modules}
             activeModule="/lecciones/docker"
             category="Servidores"
+            allUnlocked={true}
         >
             <Head>
                 <title>Docker desde cero — DarkCode Premium</title>

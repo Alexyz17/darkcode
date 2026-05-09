@@ -24,6 +24,7 @@ export default function N8n() {
             modules={modules}
             activeModule="/lecciones/n8n"
             category="Automatización"
+            allUnlocked={true}
         >
             <Head>
                 <title>Automatización con n8n — DarkCode Premium</title>
