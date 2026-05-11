@@ -35,6 +35,7 @@ CMD php artisan config:clear \
     && php artisan view:clear \
     && php artisan storage:link 2>/dev/null || true \
     && php artisan migrate --force \
+    && php artisan db:seed --class=GameSeeder --force \
     && php artisan config:cache \
     && php artisan route:cache \
     && php artisan serve --host=0.0.0.0 --port=${PORT:-8080}

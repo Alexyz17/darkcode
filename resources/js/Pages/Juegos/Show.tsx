@@ -74,19 +74,34 @@ function QuizQuestion({
     onAnswer: (value: string) => void;
 }) {
     const opts = question.options ?? [];
+    const [selected, setSelected] = useState<string | null>(null);
+
+    const handleClick = (opt: string) => {
+        if (answered) return;
+        setSelected(opt);
+        onAnswer(opt);
+    };
+
+    // After full game submit, result.correct_answer comes from server
+    const serverCorrect = result?.correct_answer;
+    const isServerData = serverCorrect && serverCorrect !== '…';
 
     return (
         <div className="space-y-3">
             {opts.map((opt, i) => {
-                const isSelected = result?.correct_answer === opt || (!result && false);
-                const isCorrect = result?.correct_answer === opt;
-                const wasChosen = answered && result && !result.correct;
+                const isChosen = selected === opt;
+                const isCorrectFromServer = isServerData && serverCorrect === opt;
+                const isWrongChoice = isServerData && isChosen && !isCorrectFromServer;
 
                 let cls = 'w-full text-left px-5 py-3.5 rounded-xl border transition-all text-sm font-medium ';
                 if (!answered) {
                     cls += 'border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:border-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/20 cursor-pointer';
-                } else if (isCorrect) {
+                } else if (isCorrectFromServer) {
                     cls += 'border-emerald-500 bg-emerald-50 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-400';
+                } else if (isWrongChoice) {
+                    cls += 'border-red-500/50 bg-red-50 dark:bg-red-900/10 text-red-500';
+                } else if (isChosen && !isServerData) {
+                    cls += 'border-indigo-500 bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400';
                 } else {
                     cls += 'border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50 text-gray-400 cursor-default';
                 }
@@ -94,16 +109,18 @@ function QuizQuestion({
                 return (
                     <motion.button
                         key={i}
-                        onClick={() => !answered && onAnswer(opt)}
+                        onClick={() => handleClick(opt)}
                         className={cls}
                         whileHover={!answered ? { scale: 1.01 } : {}}
                         whileTap={!answered ? { scale: 0.99 } : {}}
                     >
                         <span className="flex items-center gap-3">
                             <span className={`w-6 h-6 rounded-full border text-xs font-bold flex items-center justify-center shrink-0 ${
-                                answered && isCorrect
+                                answered && isCorrectFromServer
                                     ? 'border-emerald-500 bg-emerald-500 text-white'
-                                    : 'border-current'
+                                    : answered && isWrongChoice
+                                        ? 'border-red-500 bg-red-500 text-white'
+                                        : 'border-current'
                             }`}>
                                 {String.fromCharCode(65 + i)}
                             </span>
@@ -136,7 +153,6 @@ function FillCodeQuestion({
     onHint: () => void;
 }) {
     const [value, setValue] = useState('');
-    const [blank] = useState(() => question.question.includes('___'));
 
     // Show code with highlighted blank
     const parts = question.question.split('___');
@@ -185,7 +201,8 @@ function FillCodeQuestion({
 
             {hint && !answered && (
                 <p className="text-xs bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/30 rounded-lg px-3 py-2">
-                    Pista: la respuesta empieza por <strong>"{question.correct_answer.charAt(0)}"</strong> y tiene {question.correct_answer.length} caracteres.
+                    Pista activada — los puntos de esta pregunta se reducen un 50% si aciertas.
+                    Revisa la explicacion de la pregunta con atencion.
                 </p>
             )}
         </div>
@@ -229,7 +246,6 @@ function OrderBlocksQuestion({
             <div className="space-y-2">
                 {order.map((blockIdx, position) => {
                     const isCorrectPos = answered && correctOrder[position] === blockIdx;
-                    const isWrongPos = answered && correctOrder[position] !== blockIdx;
 
                     return (
                         <motion.div
@@ -537,24 +553,14 @@ export default function JuegosShow() {
 
         setAnswers(prev => ({ ...prev, [q.id]: normalizedValue as string | number[] }));
 
-        // Optimistic local check for immediate feedback
-        let correct = false;
-        if (value !== null) {
-            if (q.type === 'order_blocks' && Array.isArray(value)) {
-                correct = JSON.stringify(value) === q.correct_answer;
-            } else if (typeof value === 'string') {
-                correct = value.toLowerCase().trim() === (q.correct_answer ?? '').toLowerCase().trim();
-            }
-        }
-
-        // We don't know the real correct_answer from the server yet,
-        // so we store a placeholder — it will be overwritten after final submit.
+        // Store a pending placeholder — correct/correct_answer are filled in after final submit.
+        // We mark correct=false optimistically so the UI shows "answered" state immediately.
         setResults(prev => ({
             ...prev,
             [q.id]: {
                 question_id: q.id,
-                correct,
-                correct_answer: q.correct_answer ?? '',   // will be replaced
+                correct: false,         // will be overwritten after server submit
+                correct_answer: '…',    // placeholder, replaced by server data
                 explanation: null,
                 points_earned: 0,
                 max_points: q.points,
@@ -591,7 +597,7 @@ export default function JuegosShow() {
                     'X-CSRF-TOKEN': (document.querySelector('meta[name="csrf-token"]') as HTMLMetaElement)?.content ?? '',
                     'Accept': 'application/json',
                 },
-                body: JSON.stringify({ answers: payload, time_seconds: totalSeconds }),
+                body: JSON.stringify({ answers: payload, time_seconds: totalSeconds, hints_used: Array.from(hintUsed) }),
             });
 
             const data: GameSubmitResult = await response.json();

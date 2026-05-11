@@ -149,10 +149,10 @@ Route::prefix('lecciones')->name('lecciones.')->group(function () {
     })->name('machine-learning');
 
     // Arquitectura — premium
-    Route::get('/microservicios', function () {
+    Route::get('/microservicios-diseno', function () {
         $isPremium = auth()->check() && in_array(auth()->user()->role, ['premium', 'admin']);
-        return Inertia::render($isPremium ? 'Lecciones/Microservicios' : 'Lecciones/MicroserviciosTeaser');
-    })->name('microservicios');
+        return Inertia::render($isPremium ? 'Lecciones/MicroserviciosDiseno' : 'Lecciones/MicroserviciosDisenoTeaser');
+    })->name('microservicios-diseno');
 });
 
 // Juegos y ranking
@@ -168,9 +168,34 @@ Route::post('/webhooks/gumroad', [GumroadWebhookController::class, 'handle'])
 // Sitemap
 Route::get('/sitemap.xml', function () {
     $lecciones = [
-        'linux-esencial', 'comandos-linux', 'shell-scripting', 'laravel', 'seguridad-web',
-        'docker', 'n8n', 'ia-programacion',
-        'eloquent', 'apis-rest', 'maquinas-virtuales', 'fine-tuning',
+        // Linux
+        'linux-esencial', 'comandos-linux', 'shell-scripting',
+        // PHP / Laravel
+        'laravel', 'eloquent', 'apis-rest',
+        // Seguridad
+        'seguridad-web',
+        // Automatización / IA
+        'docker', 'n8n', 'ia-programacion', 'fine-tuning',
+        // Servidores
+        'maquinas-virtuales',
+        // Python
+        'python-basico', 'python-avanzado',
+        // JavaScript / TypeScript
+        'javascript-moderno', 'typescript-basico',
+        // Git
+        'git-esencial',
+        // Mobile
+        'kotlin-android', 'swift-ios',
+        // Frontend
+        'react-avanzado', 'nextjs', 'vuejs',
+        // DevOps
+        'github-actions', 'kubernetes',
+        // Bases de datos
+        'postgresql-avanzado', 'redis-cache',
+        // ML / IA
+        'machine-learning',
+        // Arquitectura
+        'microservicios-diseno',
     ];
     return response()
         ->view('sitemap', compact('lecciones'))

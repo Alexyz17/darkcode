@@ -98,6 +98,8 @@ class GameController extends Controller
         $request->validate([
             'answers'      => 'required|array',
             'time_seconds' => 'required|integer|min:0',
+            'hints_used'   => 'nullable|array',
+            'hints_used.*' => 'integer',
         ]);
 
         $game      = Game::where('slug', $slug)->where('is_active', true)->firstOrFail();
@@ -105,6 +107,7 @@ class GameController extends Controller
         $maxScore  = $questions->sum('points');
         $score     = 0;
         $results   = [];
+        $hintsUsed = collect($request->hints_used ?? []);
 
         foreach ($questions as $question) {
             $userAnswer = $request->answers[$question->id] ?? null;
@@ -113,6 +116,11 @@ class GameController extends Controller
 
             if ($correct) {
                 $earned = $question->points;
+
+                // Apply 50% penalty if hint was used
+                if ($hintsUsed->contains($question->id)) {
+                    $earned = (int) round($earned * 0.5);
+                }
 
                 // +10% bonus if the total time was fast (< 10 seconds per question on average)
                 $avgSeconds = $questions->count() > 0
