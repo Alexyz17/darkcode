@@ -148,7 +148,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # Los secrets se referencian con ${{ secrets.NOMBRE }}
+      # Los secrets se referencian con \${{ secrets.NOMBRE }}
       - name: Configurar .env de producción
         run: |
           echo "APP_KEY=\${{ secrets.APP_KEY }}" >> .env
