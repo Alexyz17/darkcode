@@ -48,6 +48,12 @@
     </url>
 
     <url>
+        <loc>{{ url('/contacto') }}</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.5</priority>
+    </url>
+
+    <url>
         <loc>{{ url('/privacidad') }}</loc>
         <changefreq>yearly</changefreq>
         <priority>0.2</priority>

@@ -6,6 +6,10 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\DownloadController;
 use App\Http\Controllers\GumroadWebhookController;
+use App\Http\Controllers\PasswordResetController;
+use App\Http\Controllers\SocialAuthController;
+use App\Http\Controllers\GameController;
+use App\Http\Controllers\LeaderboardController;
 use App\Http\Middleware\AdminMiddleware;
 
 Route::get('/', fn () => Inertia::render('Home'));
@@ -16,7 +20,17 @@ Route::middleware('guest')->group(function () {
     Route::post('/login', [AuthController::class, 'login']);
     Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
     Route::post('/register', [AuthController::class, 'register']);
+
+    // Password reset
+    Route::get('/forgot-password', [PasswordResetController::class, 'showForgotPassword'])->name('password.request');
+    Route::post('/forgot-password', [PasswordResetController::class, 'sendResetLink'])->name('password.email');
+    Route::get('/reset-password/{token}', [PasswordResetController::class, 'showResetPassword'])->name('password.reset');
+    Route::post('/reset-password', [PasswordResetController::class, 'resetPassword'])->name('password.update');
 });
+
+// Google OAuth (no guest middleware — Socialite manages the redirect itself)
+Route::get('/auth/google', [SocialAuthController::class, 'redirectToGoogle'])->name('auth.google');
+Route::get('/auth/google/callback', [SocialAuthController::class, 'handleGoogleCallback'])->name('auth.google.callback');
 
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth')->name('logout');
 
@@ -36,6 +50,7 @@ Route::get('/contenido', fn () => Inertia::render('Content'));
 Route::get('/beta', fn () => Inertia::render('Beta'));
 Route::get('/productos', fn () => Inertia::render('Productos'));
 Route::get('/apoya', fn () => Inertia::render('Apoya'));
+Route::get('/contacto', fn () => Inertia::render('Contact'));
 
 // Catálogo de cursos
 Route::get('/cursos', fn () => Inertia::render('Courses/Index'))->name('cursos');
@@ -68,7 +83,86 @@ Route::prefix('lecciones')->name('lecciones.')->group(function () {
     Route::get('/apis-rest',          fn () => Inertia::render('Lecciones/ApisRestTeaser'))->name('apis-rest');
     Route::get('/maquinas-virtuales', fn () => Inertia::render('Lecciones/MaquinasVirtualesTeaser'))->name('maquinas-virtuales');
     Route::get('/fine-tuning',        fn () => Inertia::render('Lecciones/FineTuningTeaser'))->name('fine-tuning');
+
+    // Python
+    Route::get('/python-basico',       fn () => Inertia::render('Lecciones/PythonBasico'))->name('python-basico');
+    Route::get('/python-avanzado', function () {
+        $isPremium = auth()->check() && in_array(auth()->user()->role, ['premium', 'admin']);
+        return Inertia::render($isPremium ? 'Lecciones/PythonAvanzado' : 'Lecciones/PythonAvanzadoTeaser');
+    })->name('python-avanzado');
+
+    // JavaScript / TypeScript
+    Route::get('/javascript-moderno',  fn () => Inertia::render('Lecciones/JavaScriptModerno'))->name('javascript-moderno');
+    Route::get('/typescript-basico',   fn () => Inertia::render('Lecciones/TypeScriptBasico'))->name('typescript-basico');
+    Route::get('/git-esencial',        fn () => Inertia::render('Lecciones/GitEsencial'))->name('git-esencial');
+
+    // Mobile — premium
+    Route::get('/kotlin-android', function () {
+        $isPremium = auth()->check() && in_array(auth()->user()->role, ['premium', 'admin']);
+        return Inertia::render($isPremium ? 'Lecciones/KotlinAndroid' : 'Lecciones/KotlinAndroidTeaser');
+    })->name('kotlin-android');
+
+    Route::get('/swift-ios', function () {
+        $isPremium = auth()->check() && in_array(auth()->user()->role, ['premium', 'admin']);
+        return Inertia::render($isPremium ? 'Lecciones/SwiftIOS' : 'Lecciones/SwiftIOSTeaser');
+    })->name('swift-ios');
+
+    // Frontend — premium
+    Route::get('/react-avanzado', function () {
+        $isPremium = auth()->check() && in_array(auth()->user()->role, ['premium', 'admin']);
+        return Inertia::render($isPremium ? 'Lecciones/ReactAvanzado' : 'Lecciones/ReactAvanzadoTeaser');
+    })->name('react-avanzado');
+
+    Route::get('/nextjs', function () {
+        $isPremium = auth()->check() && in_array(auth()->user()->role, ['premium', 'admin']);
+        return Inertia::render($isPremium ? 'Lecciones/NextJS' : 'Lecciones/NextJSTeaser');
+    })->name('nextjs');
+
+    Route::get('/vuejs', function () {
+        $isPremium = auth()->check() && in_array(auth()->user()->role, ['premium', 'admin']);
+        return Inertia::render($isPremium ? 'Lecciones/VueJS' : 'Lecciones/VueJSTeaser');
+    })->name('vuejs');
+
+    // DevOps — premium
+    Route::get('/github-actions', function () {
+        $isPremium = auth()->check() && in_array(auth()->user()->role, ['premium', 'admin']);
+        return Inertia::render($isPremium ? 'Lecciones/GitHubActions' : 'Lecciones/GitHubActionsTeaser');
+    })->name('github-actions');
+
+    Route::get('/kubernetes', function () {
+        $isPremium = auth()->check() && in_array(auth()->user()->role, ['premium', 'admin']);
+        return Inertia::render($isPremium ? 'Lecciones/KubernetesBasico' : 'Lecciones/KubernetesBasicoTeaser');
+    })->name('kubernetes');
+
+    // Bases de datos — premium
+    Route::get('/postgresql-avanzado', function () {
+        $isPremium = auth()->check() && in_array(auth()->user()->role, ['premium', 'admin']);
+        return Inertia::render($isPremium ? 'Lecciones/PostgreSQLAvanzado' : 'Lecciones/PostgreSQLAvanzadoTeaser');
+    })->name('postgresql-avanzado');
+
+    Route::get('/redis-cache', function () {
+        $isPremium = auth()->check() && in_array(auth()->user()->role, ['premium', 'admin']);
+        return Inertia::render($isPremium ? 'Lecciones/RedisCache' : 'Lecciones/RedisCacheTeaser');
+    })->name('redis-cache');
+
+    // IA / ML — premium
+    Route::get('/machine-learning', function () {
+        $isPremium = auth()->check() && in_array(auth()->user()->role, ['premium', 'admin']);
+        return Inertia::render($isPremium ? 'Lecciones/MachineLearning' : 'Lecciones/MachineLearningTeaser');
+    })->name('machine-learning');
+
+    // Arquitectura — premium
+    Route::get('/microservicios', function () {
+        $isPremium = auth()->check() && in_array(auth()->user()->role, ['premium', 'admin']);
+        return Inertia::render($isPremium ? 'Lecciones/Microservicios' : 'Lecciones/MicroserviciosTeaser');
+    })->name('microservicios');
 });
+
+// Juegos y ranking
+Route::get('/juegos', [GameController::class, 'index'])->name('juegos');
+Route::get('/juegos/{slug}', [GameController::class, 'show'])->name('juegos.show');
+Route::get('/ranking', [LeaderboardController::class, 'index'])->name('ranking');
+Route::middleware('auth')->post('/juegos/{slug}/submit', [GameController::class, 'submit'])->name('juegos.submit');
 
 // Webhooks (sin CSRF)
 Route::post('/webhooks/gumroad', [GumroadWebhookController::class, 'handle'])

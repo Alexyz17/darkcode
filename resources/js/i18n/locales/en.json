@@ -10,7 +10,10 @@
     "logout": "Sign out",
     "profile": "My profile",
     "dashboard": "Dashboard",
-    "connectedAs": "Signed in as"
+    "connectedAs": "Signed in as",
+    "games": "Games",
+    "ranking": "Ranking",
+    "contact": "Contact"
   },
   "home": {
     "badge": "Technology accessible for everyone",
@@ -74,7 +77,25 @@
     "register": "Create free account",
     "registering": "Creating account...",
     "hasAccount": "Already have an account?",
-    "loginLink": "Sign in"
+    "loginLink": "Sign in",
+    "forgotPassword": "Forgot your password?",
+    "forgotPasswordTitle": "Reset your password",
+    "forgotPasswordSub": "Enter your email and we'll send you a link to create a new password",
+    "sendResetLink": "Send reset link",
+    "sending": "Sending...",
+    "resetLinkSent": "Link sent! Check your inbox (and spam folder).",
+    "backToLogin": "Back to sign in",
+    "resetPasswordTitle": "Create a new password",
+    "resetPasswordSub": "Enter your new password to regain access",
+    "newPassword": "New password",
+    "confirmNewPassword": "Confirm new password",
+    "resetPassword": "Reset password",
+    "resetting": "Resetting...",
+    "orContinueWith": "or continue with",
+    "continueWithGoogle": "Continue with Google",
+    "changePassword": "Change password",
+    "currentPassword": "Current password",
+    "passwordChanged": "Password changed successfully"
   },
   "dashboard": {
     "title": "User dashboard",
@@ -95,10 +116,146 @@
     "upgradeDesc": "Access the full premium catalogue without limits.",
     "seePlans": "See plans"
   },
+  "lesson": {
+    "free": "Free",
+    "premium": "Premium",
+    "locked": "Locked",
+    "unlockedForPremium": "Unlocked with Premium",
+    "modules": "Modules",
+    "duration": "Duration",
+    "copyCode": "Copy",
+    "copied": "Copied!",
+    "lines": "lines",
+    "unlockAll": "Unlock everything — €19 for life",
+    "premiumContent": "Premium Content",
+    "premiumContentDesc": "This module is exclusive to Premium users. Upgrade your plan to access the full content.",
+    "whatYouGetPremium": "What does Premium include?",
+    "tip": "Tip",
+    "warning": "Warning",
+    "info": "Info",
+    "danger": "Important",
+    "example": "Example",
+    "exercise": "Exercise",
+    "solution": "Show solution",
+    "hideSolution": "Hide solution",
+    "nextLesson": "Next lesson",
+    "prevLesson": "Previous lesson"
+  },
+  "games": {
+    "title": "Programming games",
+    "subtitle": "Practice what you learn and compete in the weekly ranking",
+    "play": "Play",
+    "yourBest": "Your best",
+    "points": "points",
+    "difficulty": {
+      "easy": "Easy",
+      "medium": "Medium",
+      "hard": "Hard"
+    },
+    "types": {
+      "quiz": "Quiz",
+      "fill_code": "Fill the code",
+      "order_blocks": "Order the blocks",
+      "guess_output": "Guess the output"
+    },
+    "question": "Question",
+    "of": "of",
+    "timeLeft": "Time left",
+    "correct": "Correct!",
+    "incorrect": "Incorrect",
+    "explanation": "Explanation",
+    "next": "Next",
+    "finish": "Finish",
+    "yourAnswer": "Your answer",
+    "checkAnswer": "Check",
+    "hint": "Hint (−50% points)",
+    "showHint": "Show hint",
+    "dragToOrder": "Drag to reorder",
+    "checkOrder": "Check order",
+    "results": "Results",
+    "score": "Score",
+    "timeUsed": "Time",
+    "accuracy": "Accuracy",
+    "playAgain": "Play again",
+    "backToGames": "Back to games",
+    "shareResult": "Share result",
+    "loginToPlay": "Sign in to save your score",
+    "noGames": "No games available yet"
+  },
+  "ranking": {
+    "title": "Weekly ranking",
+    "subtitle": "Top players this week",
+    "resetsIn": "Resets in",
+    "days": "days",
+    "hours": "hours",
+    "minutes": "minutes",
+    "rank": "Rank",
+    "player": "Player",
+    "score": "Score",
+    "games": "Games",
+    "yourRank": "Your rank",
+    "notRanked": "Not ranked this week",
+    "playToRank": "Play to appear in the ranking!"
+  },
+  "contact": {
+    "title": "Let's talk",
+    "subtitle": "Have a question, proposal or just want to say hi? I'm here.",
+    "nameLabel": "Your name",
+    "namePlaceholder": "Alex García",
+    "emailLabel": "Your email",
+    "emailPlaceholder": "alex@example.com",
+    "subjectLabel": "Subject",
+    "subjects": {
+      "question": "Content question",
+      "premium": "Premium access",
+      "bug": "Bug report",
+      "collab": "Collaboration",
+      "other": "Other"
+    },
+    "messageLabel": "Message",
+    "messagePlaceholder": "Tell me how I can help you...",
+    "send": "Send message",
+    "sending": "Sending...",
+    "successTitle": "Message sent!",
+    "successDesc": "I'll reply within 24 hours. Thanks for reaching out!",
+    "channels": "You can also find me at",
+    "faqTitle": "Frequently asked questions",
+    "faq": [
+      {
+        "q": "How much does Premium access cost?",
+        "a": "Lifetime Beta access costs €19 (one-time payment). Includes all current and future courses, no subscription."
+      },
+      {
+        "q": "Can I view content without registering?",
+        "a": "Yes, the 5 free courses are accessible without an account. Registration (free) unlocks the user dashboard and additional resources."
+      },
+      {
+        "q": "How often is content updated?",
+        "a": "I add new content every week. Premium users automatically get access to all new content."
+      },
+      {
+        "q": "Are there certificates on course completion?",
+        "a": "I'm working on the certificate system. It will be available soon for Premium users."
+      }
+    ]
+  },
   "common": {
     "courses": "courses",
     "basic": "Beginner",
     "intermediate": "Intermediate",
-    "advanced": "Advanced"
+    "advanced": "Advanced",
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "retry": "Retry",
+    "save": "Save",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "delete": "Delete",
+    "edit": "Edit",
+    "close": "Close",
+    "seeMore": "See more",
+    "seeLess": "See less",
+    "new": "New",
+    "comingSoon": "Coming soon"
   }
 }

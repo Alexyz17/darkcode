@@ -3,6 +3,9 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Link } from '@inertiajs/react';
 import { useState } from 'react';
+import { motion } from 'framer-motion';
+import { FadeInUp } from '@/components/animations/FadeInUp';
+import { StaggerChildren, StaggerItem } from '@/components/animations/StaggerChildren';
 import {
     BookOpen, Clock, Star, Search, Filter,
     Terminal, Server, Code2, Brain, Zap, Shield, ChevronRight
@@ -44,10 +47,10 @@ export default function CoursesIndex() {
         <AppLayout>
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
                 {/* Cabecera */}
-                <div className="mb-10">
+                <FadeInUp className="mb-10">
                     <h1 className="text-4xl font-bold mb-2">Todos los cursos</h1>
                     <p className="text-gray-400">{filtered.length} cursos disponibles</p>
-                </div>
+                </FadeInUp>
 
                 {/* Buscador */}
                 <div className="relative mb-6">
@@ -111,38 +114,40 @@ export default function CoursesIndex() {
                                 <p>No hay cursos que coincidan con tu búsqueda.</p>
                             </div>
                         ) : (
-                            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5">
+                            <StaggerChildren className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5">
                                 {filtered.map(course => {
                                     const Icon = course.icon;
                                     return (
-                                        <Link key={course.id} href={course.href}
-                                            className="group flex flex-col rounded-2xl border border-gray-800 bg-gray-900/60 hover:border-gray-700 hover:bg-gray-900 transition-all overflow-hidden">
-                                            <div className={`h-2 w-full ${course.premium ? 'bg-amber-500' : 'bg-emerald-600'}`} />
-                                            <div className="p-5 flex flex-col h-full">
-                                                <div className="flex items-start justify-between mb-3">
-                                                    <div className={`p-2 rounded-lg ${course.bg}`}>
-                                                        <Icon className={`h-5 w-5 ${course.iconColor}`} />
+                                        <StaggerItem key={course.id}>
+                                            <Link href={course.href}
+                                                className="group flex flex-col rounded-2xl border border-gray-800 bg-gray-900/60 hover:border-gray-700 hover:bg-gray-900 transition-all overflow-hidden hover:-translate-y-1 duration-300">
+                                                <div className={`h-2 w-full ${course.premium ? 'bg-amber-500' : 'bg-emerald-600'}`} />
+                                                <div className="p-5 flex flex-col h-full">
+                                                    <div className="flex items-start justify-between mb-3">
+                                                        <div className={`p-2 rounded-lg ${course.bg}`}>
+                                                            <Icon className={`h-5 w-5 ${course.iconColor}`} />
+                                                        </div>
+                                                        <Badge variant={course.premium ? 'premium' : 'free'}>
+                                                            {course.premium ? 'Premium' : 'Gratis'}
+                                                        </Badge>
                                                     </div>
-                                                    <Badge variant={course.premium ? 'premium' : 'free'}>
-                                                        {course.premium ? 'Premium' : 'Gratis'}
-                                                    </Badge>
+                                                    <h3 className="font-semibold text-white mb-1.5 group-hover:text-indigo-300 transition-colors">
+                                                        {course.title}
+                                                    </h3>
+                                                    <p className="text-gray-400 text-sm leading-relaxed mb-4 flex-1 line-clamp-2">
+                                                        {course.description}
+                                                    </p>
+                                                    <div className="flex items-center gap-3 text-xs text-gray-500 border-t border-gray-800 pt-3">
+                                                        <span className="flex items-center gap-1"><Clock className="h-3.5 w-3.5" />{course.duration}</span>
+                                                        <span className="flex items-center gap-1"><BookOpen className="h-3.5 w-3.5" />{course.lessons} lecciones</span>
+                                                        <span className="flex items-center gap-1"><Star className="h-3.5 w-3.5" />{course.level}</span>
+                                                    </div>
                                                 </div>
-                                                <h3 className="font-semibold text-white mb-1.5 group-hover:text-indigo-300 transition-colors">
-                                                    {course.title}
-                                                </h3>
-                                                <p className="text-gray-400 text-sm leading-relaxed mb-4 flex-1 line-clamp-2">
-                                                    {course.description}
-                                                </p>
-                                                <div className="flex items-center gap-3 text-xs text-gray-500 border-t border-gray-800 pt-3">
-                                                    <span className="flex items-center gap-1"><Clock className="h-3.5 w-3.5" />{course.duration}</span>
-                                                    <span className="flex items-center gap-1"><BookOpen className="h-3.5 w-3.5" />{course.lessons} lecciones</span>
-                                                    <span className="flex items-center gap-1"><Star className="h-3.5 w-3.5" />{course.level}</span>
-                                                </div>
-                                            </div>
-                                        </Link>
+                                            </Link>
+                                        </StaggerItem>
                                     );
                                 })}
-                            </div>
+                            </StaggerChildren>
                         )}
                     </div>
                 </div>

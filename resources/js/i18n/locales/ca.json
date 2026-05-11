@@ -10,7 +10,10 @@
     "logout": "Tancar sessió",
     "profile": "El meu perfil",
     "dashboard": "Tauler",
-    "connectedAs": "Connectat com"
+    "connectedAs": "Connectat com",
+    "games": "Jocs",
+    "ranking": "Rànquing",
+    "contact": "Contacte"
   },
   "home": {
     "badge": "Tecnologia accessible per a tothom",
@@ -74,7 +77,25 @@
     "register": "Crear compte gratuït",
     "registering": "Creant compte...",
     "hasAccount": "Ja tens compte?",
-    "loginLink": "Inicia sessió"
+    "loginLink": "Inicia sessió",
+    "forgotPassword": "Has oblidat la contrasenya?",
+    "forgotPasswordTitle": "Recupera la teva contrasenya",
+    "forgotPasswordSub": "Introdueix el teu email i t'enviarem un enllaç per crear una nova contrasenya",
+    "sendResetLink": "Enviar enllaç de recuperació",
+    "sending": "Enviant...",
+    "resetLinkSent": "Enllaç enviat! Revisa la teva safata d'entrada (i el correu no desitjat).",
+    "backToLogin": "Tornar a l'inici de sessió",
+    "resetPasswordTitle": "Crea una nova contrasenya",
+    "resetPasswordSub": "Introdueix la teva nova contrasenya per recuperar l'accés",
+    "newPassword": "Nova contrasenya",
+    "confirmNewPassword": "Confirmar nova contrasenya",
+    "resetPassword": "Canviar contrasenya",
+    "resetting": "Canviant...",
+    "orContinueWith": "o continua amb",
+    "continueWithGoogle": "Continuar amb Google",
+    "changePassword": "Canviar contrasenya",
+    "currentPassword": "Contrasenya actual",
+    "passwordChanged": "Contrasenya canviada correctament"
   },
   "dashboard": {
     "title": "Tauler d'usuari",
@@ -95,10 +116,146 @@
     "upgradeDesc": "Accedeix a tot el catàleg premium sense límits.",
     "seePlans": "Veure plans"
   },
+  "lesson": {
+    "free": "Gratuït",
+    "premium": "Premium",
+    "locked": "Bloquejat",
+    "unlockedForPremium": "Desbloquejats amb Premium",
+    "modules": "Mòduls",
+    "duration": "Durada",
+    "copyCode": "Copiar",
+    "copied": "Copiat!",
+    "lines": "línies",
+    "unlockAll": "Desbloquejar-ho tot — 19€ de per vida",
+    "premiumContent": "Contingut Premium",
+    "premiumContentDesc": "Aquest mòdul és exclusiu per a usuaris Premium. Actualitza el teu pla per accedir al contingut complet.",
+    "whatYouGetPremium": "Què inclou Premium?",
+    "tip": "Consell",
+    "warning": "Avís",
+    "info": "Informació",
+    "danger": "Important",
+    "example": "Exemple",
+    "exercise": "Exercici",
+    "solution": "Veure solució",
+    "hideSolution": "Amagar solució",
+    "nextLesson": "Lliçó següent",
+    "prevLesson": "Lliçó anterior"
+  },
+  "games": {
+    "title": "Jocs de programació",
+    "subtitle": "Posa en pràctica el que aprens i competeix al rànquing setmanal",
+    "play": "Jugar",
+    "yourBest": "El teu millor",
+    "points": "punts",
+    "difficulty": {
+      "easy": "Fàcil",
+      "medium": "Mitjà",
+      "hard": "Difícil"
+    },
+    "types": {
+      "quiz": "Quiz",
+      "fill_code": "Completa el codi",
+      "order_blocks": "Ordena els blocs",
+      "guess_output": "Endevina l'output"
+    },
+    "question": "Pregunta",
+    "of": "de",
+    "timeLeft": "Temps restant",
+    "correct": "Correcte!",
+    "incorrect": "Incorrecte",
+    "explanation": "Explicació",
+    "next": "Següent",
+    "finish": "Finalitzar",
+    "yourAnswer": "La teva resposta",
+    "checkAnswer": "Comprovar",
+    "hint": "Pista (−50% punts)",
+    "showHint": "Veure pista",
+    "dragToOrder": "Arrossega per ordenar",
+    "checkOrder": "Comprovar ordre",
+    "results": "Resultats",
+    "score": "Puntuació",
+    "timeUsed": "Temps",
+    "accuracy": "Encerts",
+    "playAgain": "Jugar de nou",
+    "backToGames": "Tornar als jocs",
+    "shareResult": "Compartir resultat",
+    "loginToPlay": "Inicia sessió per desar la teva puntuació",
+    "noGames": "No hi ha jocs disponibles encara"
+  },
+  "ranking": {
+    "title": "Rànquing setmanal",
+    "subtitle": "Millors jugadors d'aquesta setmana",
+    "resetsIn": "Es reinicia en",
+    "days": "dies",
+    "hours": "hores",
+    "minutes": "minuts",
+    "rank": "Posició",
+    "player": "Jugador",
+    "score": "Punts",
+    "games": "Jocs",
+    "yourRank": "La teva posició",
+    "notRanked": "Sense classificar aquesta setmana",
+    "playToRank": "Juga per aparèixer al rànquing!"
+  },
+  "contact": {
+    "title": "Parlem",
+    "subtitle": "Tens alguna pregunta, proposta o simplement vols saludar? Soc aquí.",
+    "nameLabel": "El teu nom",
+    "namePlaceholder": "Alex García",
+    "emailLabel": "El teu email",
+    "emailPlaceholder": "alex@exemple.com",
+    "subjectLabel": "Assumpte",
+    "subjects": {
+      "question": "Pregunta sobre contingut",
+      "premium": "Accés Premium",
+      "bug": "Informe d'error",
+      "collab": "Col·laboració",
+      "other": "Altres"
+    },
+    "messageLabel": "Missatge",
+    "messagePlaceholder": "Explica'm en què et puc ajudar...",
+    "send": "Enviar missatge",
+    "sending": "Enviant...",
+    "successTitle": "Missatge enviat!",
+    "successDesc": "Et respondré en menys de 24 hores. Gràcies per escriure!",
+    "channels": "També em pots trobar a",
+    "faqTitle": "Preguntes freqüents",
+    "faq": [
+      {
+        "q": "Quant costa l'accés Premium?",
+        "a": "L'accés Beta de per vida costa 19€ (pagament únic). Inclou tots els cursos actuals i futurs sense subscripció."
+      },
+      {
+        "q": "Puc veure el contingut sense registrar-me?",
+        "a": "Sí, els 5 cursos gratuïts són accessibles sense compte. El registre (gratuït) desbloqueja el tauler d'usuari i recursos addicionals."
+      },
+      {
+        "q": "Amb quina freqüència s'actualitza el contingut?",
+        "a": "Afegeixo contingut nou cada setmana. Els usuaris Premium reben accés a tot el contingut nou automàticament."
+      },
+      {
+        "q": "Hi ha certificats en completar els cursos?",
+        "a": "Estic treballant en el sistema de certificats. Estarà disponible aviat per als usuaris Premium."
+      }
+    ]
+  },
   "common": {
     "courses": "cursos",
     "basic": "Bàsic",
     "intermediate": "Intermedi",
-    "advanced": "Avançat"
+    "advanced": "Avançat",
+    "loading": "Carregant...",
+    "error": "S'ha produït un error",
+    "retry": "Tornar a intentar",
+    "save": "Desar",
+    "cancel": "Cancel·lar",
+    "confirm": "Confirmar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "close": "Tancar",
+    "seeMore": "Veure més",
+    "seeLess": "Veure menys",
+    "new": "Nou",
+    "comingSoon": "Pròximament"
   }
 }

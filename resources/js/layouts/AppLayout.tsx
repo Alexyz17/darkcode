@@ -1,6 +1,6 @@
 import { Link, usePage, router } from '@inertiajs/react';
 import { Button } from '@/components/ui/button';
-import { Code2, Menu, X, ChevronDown, LogOut, User, Sun, Moon, Languages } from 'lucide-react';
+import { Code2, Menu, X, ChevronDown, LogOut, User, Sun, Moon, Languages, Gamepad2, Trophy } from 'lucide-react';
 import { useState, useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { SharedProps } from '@/types';
@@ -76,10 +76,27 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                             <Link href="/apoya" className="text-gray-500 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors text-sm">
                                 {t('nav.support')}
                             </Link>
+                            <Link href="/contacto" className="text-gray-500 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors text-sm">
+                                {i18n.language === 'en' ? 'Contact' : i18n.language === 'ca' ? 'Contacte' : 'Contacto'}
+                            </Link>
                         </div>
 
                         {/* Right controls */}
                         <div className="hidden md:flex items-center gap-2">
+                            {/* Games & Ranking — visible but compact */}
+                            <div className="flex items-center gap-1 mr-1 border-r border-gray-200 dark:border-gray-700 pr-3">
+                                <Link href="/juegos"
+                                    className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium text-indigo-500 dark:text-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 transition-colors">
+                                    <Gamepad2 className="h-3.5 w-3.5" />
+                                    {t('nav.games')}
+                                </Link>
+                                <Link href="/ranking"
+                                    className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium text-amber-500 dark:text-amber-400 hover:bg-amber-50 dark:hover:bg-amber-900/30 transition-colors">
+                                    <Trophy className="h-3.5 w-3.5" />
+                                    {t('nav.ranking')}
+                                </Link>
+                            </div>
+
                             {/* Theme toggle */}
                             <button onClick={toggleTheme} className="p-2 rounded-lg text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
                                 {dark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
@@ -157,6 +174,17 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                         <Link href="/beta" className="block text-amber-500 py-2 font-medium" onClick={() => setMenuOpen(false)}>Beta</Link>
                         <Link href="/productos" className="block text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white py-2" onClick={() => setMenuOpen(false)}>{t('nav.products')}</Link>
                         <Link href="/apoya" className="block text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white py-2" onClick={() => setMenuOpen(false)}>{t('nav.support')}</Link>
+                        <Link href="/contacto" className="block text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white py-2" onClick={() => setMenuOpen(false)}>{t('nav.contact')}</Link>
+                        <div className="flex items-center gap-2 py-1">
+                            <Link href="/juegos" onClick={() => setMenuOpen(false)}
+                                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-indigo-500 bg-indigo-50 dark:bg-indigo-900/30 transition-colors">
+                                <Gamepad2 className="h-3.5 w-3.5" /> {t('nav.games')}
+                            </Link>
+                            <Link href="/ranking" onClick={() => setMenuOpen(false)}
+                                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium text-amber-500 bg-amber-50 dark:bg-amber-900/30 transition-colors">
+                                <Trophy className="h-3.5 w-3.5" /> {t('nav.ranking')}
+                            </Link>
+                        </div>
                         <div className="flex items-center gap-3 pt-1 pb-2">
                             <button onClick={toggleTheme} className="p-2 rounded-lg text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
                                 {dark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
@@ -214,6 +242,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                                 <li><Link href="/beta" className="text-sm text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">Beta — 19€</Link></li>
                                 <li><Link href="/productos" className="text-sm text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">{t('nav.products')}</Link></li>
                                 <li><Link href="/apoya" className="text-sm text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">{t('nav.support')}</Link></li>
+                                <li><Link href="/contacto" className="text-sm text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">{i18n.language === 'en' ? 'Contact' : i18n.language === 'ca' ? 'Contacte' : 'Contacto'}</Link></li>
                             </ul>
                         </div>
 

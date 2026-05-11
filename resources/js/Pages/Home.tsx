@@ -3,6 +3,9 @@ import { Link, Head } from '@inertiajs/react';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import { useInView } from '@/hooks/useInView';
+import { FadeInUp } from '@/components/animations/FadeInUp';
+import { StaggerChildren, StaggerItem } from '@/components/animations/StaggerChildren';
+import { ScaleIn } from '@/components/animations/ScaleIn';
 import {
     ArrowRight, CirclePlay, Package, Coffee, Zap, Brain, Code2,
     CheckCircle2, Star, Terminal, Server, Shield, Lock,
@@ -20,12 +23,12 @@ function Reveal({
     className?: string;
     delay?: number;
 }) {
-    const [ref, visible] = useInView();
+    const { ref, inView } = useInView({ resetOnExit: true });
     return (
         <div
             ref={ref}
-            className={`transition-all duration-700 ease-out ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'} ${className}`}
-            style={{ transitionDelay: visible ? `${delay}ms` : '0ms' }}
+            className={`transition-all duration-700 ease-out ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'} ${className}`}
+            style={{ transitionDelay: inView ? `${delay}ms` : '0ms' }}
         >
             {children}
         </div>
@@ -243,21 +246,19 @@ export default function Home() {
             {/* ── STATS BAR ──────────────────────────────────────────────────── */}
             <section className="py-12 px-4 sm:px-6 lg:px-8 border-y border-gray-100 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-900/30">
                 <div className="max-w-5xl mx-auto">
-                    <Reveal className="grid grid-cols-2 sm:grid-cols-4 gap-8">
-                        {stats.map(({ value, label, icon: Icon }, i) => (
-                            <div
-                                key={label}
-                                className="flex flex-col items-center text-center"
-                                style={{ transitionDelay: `${i * 80}ms` }}
-                            >
-                                <div className="p-2.5 rounded-xl bg-indigo-50 dark:bg-indigo-900/30 mb-3">
-                                    <Icon className="h-5 w-5 text-indigo-500" />
+                    <StaggerChildren className="grid grid-cols-2 sm:grid-cols-4 gap-8">
+                        {stats.map(({ value, label, icon: Icon }) => (
+                            <StaggerItem key={label}>
+                                <div className="flex flex-col items-center text-center">
+                                    <div className="p-2.5 rounded-xl bg-indigo-50 dark:bg-indigo-900/30 mb-3">
+                                        <Icon className="h-5 w-5 text-indigo-500" />
+                                    </div>
+                                    <span className="text-3xl font-extrabold text-gray-900 dark:text-white">{value}</span>
+                                    <span className="text-sm text-gray-500 dark:text-gray-400 mt-0.5">{label}</span>
                                 </div>
-                                <span className="text-3xl font-extrabold text-gray-900 dark:text-white">{value}</span>
-                                <span className="text-sm text-gray-500 dark:text-gray-400 mt-0.5">{label}</span>
-                            </div>
+                            </StaggerItem>
                         ))}
-                    </Reveal>
+                    </StaggerChildren>
                 </div>
             </section>
 

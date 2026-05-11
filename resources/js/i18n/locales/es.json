@@ -10,7 +10,10 @@
     "logout": "Cerrar sesión",
     "profile": "Mi perfil",
     "dashboard": "Panel",
-    "connectedAs": "Conectado como"
+    "connectedAs": "Conectado como",
+    "games": "Juegos",
+    "ranking": "Ranking",
+    "contact": "Contacto"
   },
   "home": {
     "badge": "Tecnología accesible para todos",
@@ -74,7 +77,25 @@
     "register": "Crear cuenta gratuita",
     "registering": "Creando cuenta...",
     "hasAccount": "¿Ya tienes cuenta?",
-    "loginLink": "Inicia sesión"
+    "loginLink": "Inicia sesión",
+    "forgotPassword": "¿Olvidaste tu contraseña?",
+    "forgotPasswordTitle": "Recupera tu contraseña",
+    "forgotPasswordSub": "Introduce tu email y te enviamos un enlace para crear una nueva contraseña",
+    "sendResetLink": "Enviar enlace de recuperación",
+    "sending": "Enviando...",
+    "resetLinkSent": "¡Enlace enviado! Revisa tu bandeja de entrada (y el spam).",
+    "backToLogin": "Volver al inicio de sesión",
+    "resetPasswordTitle": "Crea una nueva contraseña",
+    "resetPasswordSub": "Introduce tu nueva contraseña para recuperar el acceso",
+    "newPassword": "Nueva contraseña",
+    "confirmNewPassword": "Confirmar nueva contraseña",
+    "resetPassword": "Cambiar contraseña",
+    "resetting": "Cambiando...",
+    "orContinueWith": "o continúa con",
+    "continueWithGoogle": "Continuar con Google",
+    "changePassword": "Cambiar contraseña",
+    "currentPassword": "Contraseña actual",
+    "passwordChanged": "Contraseña cambiada correctamente"
   },
   "dashboard": {
     "title": "Panel de usuario",
@@ -95,10 +116,146 @@
     "freeResourceDesc": "Por registrarte tienes este PDF descargable sin coste.",
     "resources": "Más recursos"
   },
+  "lesson": {
+    "free": "Gratis",
+    "premium": "Premium",
+    "locked": "Bloqueado",
+    "unlockedForPremium": "Desbloqueados con Premium",
+    "modules": "Módulos",
+    "duration": "Duración",
+    "copyCode": "Copiar",
+    "copied": "¡Copiado!",
+    "lines": "líneas",
+    "unlockAll": "Desbloquear todo — 19€ de por vida",
+    "premiumContent": "Contenido Premium",
+    "premiumContentDesc": "Este módulo es exclusivo para usuarios Premium. Actualiza tu plan para acceder al contenido completo.",
+    "whatYouGetPremium": "¿Qué incluye Premium?",
+    "tip": "Consejo",
+    "warning": "Advertencia",
+    "info": "Información",
+    "danger": "Importante",
+    "example": "Ejemplo",
+    "exercise": "Ejercicio",
+    "solution": "Ver solución",
+    "hideSolution": "Ocultar solución",
+    "nextLesson": "Siguiente lección",
+    "prevLesson": "Lección anterior"
+  },
+  "games": {
+    "title": "Juegos de programación",
+    "subtitle": "Pon en práctica lo que aprendes y compite en el ranking semanal",
+    "play": "Jugar",
+    "yourBest": "Tu mejor marca",
+    "points": "puntos",
+    "difficulty": {
+      "easy": "Fácil",
+      "medium": "Medio",
+      "hard": "Difícil"
+    },
+    "types": {
+      "quiz": "Quiz",
+      "fill_code": "Completa el código",
+      "order_blocks": "Ordena los bloques",
+      "guess_output": "Adivina el output"
+    },
+    "question": "Pregunta",
+    "of": "de",
+    "timeLeft": "Tiempo restante",
+    "correct": "¡Correcto!",
+    "incorrect": "Incorrecto",
+    "explanation": "Explicación",
+    "next": "Siguiente",
+    "finish": "Finalizar",
+    "yourAnswer": "Tu respuesta",
+    "checkAnswer": "Comprobar",
+    "hint": "Pista (−50% puntos)",
+    "showHint": "Ver pista",
+    "dragToOrder": "Arrastra para ordenar",
+    "checkOrder": "Comprobar orden",
+    "results": "Resultados",
+    "score": "Puntuación",
+    "timeUsed": "Tiempo",
+    "accuracy": "Aciertos",
+    "playAgain": "Jugar de nuevo",
+    "backToGames": "Volver a juegos",
+    "shareResult": "Compartir resultado",
+    "loginToPlay": "Inicia sesión para guardar tu puntuación",
+    "noGames": "No hay juegos disponibles todavía"
+  },
+  "ranking": {
+    "title": "Ranking semanal",
+    "subtitle": "Top jugadores de esta semana",
+    "resetsIn": "Se resetea en",
+    "days": "días",
+    "hours": "horas",
+    "minutes": "minutos",
+    "rank": "Posición",
+    "player": "Jugador",
+    "score": "Puntos",
+    "games": "Juegos",
+    "yourRank": "Tu posición",
+    "notRanked": "Sin clasificar esta semana",
+    "playToRank": "¡Juega para aparecer en el ranking!"
+  },
+  "contact": {
+    "title": "Hablemos",
+    "subtitle": "¿Tienes alguna pregunta, propuesta o simplemente quieres saludar? Estoy aquí.",
+    "nameLabel": "Tu nombre",
+    "namePlaceholder": "Alex García",
+    "emailLabel": "Tu email",
+    "emailPlaceholder": "alex@ejemplo.com",
+    "subjectLabel": "Asunto",
+    "subjects": {
+      "question": "Pregunta sobre contenido",
+      "premium": "Acceso Premium",
+      "bug": "Reporte de error",
+      "collab": "Colaboración",
+      "other": "Otro"
+    },
+    "messageLabel": "Mensaje",
+    "messagePlaceholder": "Cuéntame en qué puedo ayudarte...",
+    "send": "Enviar mensaje",
+    "sending": "Enviando...",
+    "successTitle": "¡Mensaje enviado!",
+    "successDesc": "Te responderé en menos de 24 horas. ¡Gracias por escribir!",
+    "channels": "También puedes encontrarme en",
+    "faqTitle": "Preguntas frecuentes",
+    "faq": [
+      {
+        "q": "¿Cuánto cuesta el acceso Premium?",
+        "a": "El acceso Beta de por vida cuesta 19€ (pago único). Incluye todos los cursos actuales y futuros sin suscripción."
+      },
+      {
+        "q": "¿Puedo ver el contenido sin registrarme?",
+        "a": "Sí, los 5 cursos gratuitos son accesibles sin cuenta. El registro (gratuito) desbloquea el panel de usuario y recursos adicionales."
+      },
+      {
+        "q": "¿Con qué frecuencia se actualiza el contenido?",
+        "a": "Añado nuevo contenido cada semana. Los usuarios Premium reciben acceso a todo el contenido nuevo automáticamente."
+      },
+      {
+        "q": "¿Hay certificados al completar los cursos?",
+        "a": "Estoy trabajando en el sistema de certificados. Estará disponible próximamente para usuarios Premium."
+      }
+    ]
+  },
   "common": {
     "courses": "cursos",
     "basic": "Básico",
     "intermediate": "Intermedio",
-    "advanced": "Avanzado"
+    "advanced": "Avanzado",
+    "loading": "Cargando...",
+    "error": "Ha ocurrido un error",
+    "retry": "Reintentar",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "confirm": "Confirmar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "close": "Cerrar",
+    "seeMore": "Ver más",
+    "seeLess": "Ver menos",
+    "new": "Nuevo",
+    "comingSoon": "Próximamente"
   }
 }

@@ -133,17 +133,49 @@ export default function LessonLayout({
                         {/* Vídeo embed (si tiene YouTube ID) */}
                         {videoId && <VideoPlayer videoId={videoId} title={title} />}
 
-                        <article className="prose prose-gray dark:prose-invert max-w-none
-                            prose-headings:font-bold prose-headings:tracking-tight
-                            prose-h1:text-3xl prose-h2:text-2xl prose-h3:text-xl
-                            prose-code:bg-gray-100 dark:prose-code:bg-gray-800
-                            prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded
-                            prose-code:text-sm prose-code:font-mono prose-code:before:content-none prose-code:after:content-none
-                            prose-pre:bg-gray-900 dark:prose-pre:bg-gray-950 prose-pre:border prose-pre:border-gray-800
-                            prose-pre:rounded-xl prose-pre:text-sm
-                            prose-a:text-indigo-600 dark:prose-a:text-indigo-400
-                            prose-blockquote:border-indigo-500 prose-blockquote:bg-indigo-50 dark:prose-blockquote:bg-indigo-900/20
-                            prose-blockquote:px-4 prose-blockquote:py-1 prose-blockquote:rounded-r-lg prose-blockquote:not-italic
+                        <article className="
+                            max-w-none text-slate-300
+
+                            [&>h1]:text-3xl [&>h1]:font-extrabold [&>h1]:tracking-tight
+                            [&>h1]:text-white [&>h1]:mb-6 [&>h1]:mt-0 [&>h1]:leading-tight
+
+                            [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:tracking-tight
+                            [&_h2]:text-indigo-300 [&_h2]:mt-12 [&_h2]:mb-4
+                            [&_h2]:pb-3 [&_h2]:border-b [&_h2]:border-slate-800
+
+                            [&_h3]:text-lg [&_h3]:font-semibold
+                            [&_h3]:text-slate-200 [&_h3]:mt-8 [&_h3]:mb-3
+
+                            [&_h4]:text-base [&_h4]:font-semibold
+                            [&_h4]:text-slate-300 [&_h4]:mt-6 [&_h4]:mb-2
+
+                            [&_p]:leading-[1.8] [&_p]:text-slate-300 [&_p]:mb-4
+
+                            [&_strong]:text-slate-100 [&_strong]:font-semibold
+
+                            [&_ul]:my-4 [&_ul]:space-y-2 [&_ul]:pl-0 [&_ul]:list-none
+                            [&_ul>li]:flex [&_ul>li]:gap-2.5 [&_ul>li]:text-slate-300
+                            [&_ul>li]:before:content-['▸'] [&_ul>li]:before:text-indigo-400
+                            [&_ul>li]:before:shrink-0 [&_ul>li]:before:mt-px [&_ul>li]:leading-relaxed
+
+                            [&_ol]:my-4 [&_ol]:space-y-2 [&_ol]:pl-6
+                            [&_ol>li]:text-slate-300 [&_ol>li]:leading-relaxed
+
+                            [&_code]:bg-slate-800 [&_code]:text-slate-200
+                            [&_code]:px-1.5 [&_code]:py-0.5 [&_code]:rounded
+                            [&_code]:text-[0.8125rem] [&_code]:font-mono
+                            [&_code]:before:content-none [&_code]:after:content-none
+
+                            [&_pre]:hidden
+
+                            [&_a]:text-indigo-400 [&_a]:underline-offset-2 [&_a]:decoration-indigo-500/50
+                            [&_a:hover]:text-indigo-300
+
+                            [&_blockquote]:border-l-4 [&_blockquote]:border-indigo-500
+                            [&_blockquote]:bg-indigo-950/30 [&_blockquote]:px-5 [&_blockquote]:py-3
+                            [&_blockquote]:rounded-r-xl [&_blockquote]:my-6 [&_blockquote]:not-italic
+                            [&_blockquote]:text-slate-300 [&_blockquote]:leading-relaxed
+                            [&_blockquote_p]:mb-0
                         ">
                             {children}
                         </article>
