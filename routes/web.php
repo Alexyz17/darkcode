@@ -86,10 +86,7 @@ Route::prefix('lecciones')->name('lecciones.')->group(function () {
 
     // Python
     Route::get('/python-basico',       fn () => Inertia::render('Lecciones/PythonBasico'))->name('python-basico');
-    Route::get('/python-avanzado', function () {
-        $isPremium = auth()->check() && in_array(auth()->user()->role, ['premium', 'admin']);
-        return Inertia::render($isPremium ? 'Lecciones/PythonAvanzado' : 'Lecciones/PythonAvanzadoTeaser');
-    })->name('python-avanzado');
+    Route::get('/python-avanzado', fn () => Inertia::render('Lecciones/PythonAvanzado'))->name('python-avanzado');
 
     // JavaScript / TypeScript
     Route::get('/javascript-moderno',  fn () => Inertia::render('Lecciones/JavaScriptModerno'))->name('javascript-moderno');
