@@ -16,16 +16,18 @@ RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
 
 WORKDIR /app
 
-# PHP dependencies
+# PHP dependencies (--no-scripts because app files aren't present yet)
 COPY composer.json composer.lock ./
 RUN composer install --no-dev --optimize-autoloader --no-interaction --no-scripts
 
-# Node dependencies + build
+# Node dependencies
 COPY package.json package-lock.json* ./
 RUN npm install
 
+# Copy all application files
 COPY . .
 
+# Build frontend assets
 RUN npm run build
 
 EXPOSE 8080

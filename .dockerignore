@@ -1,0 +1,16 @@
+.git
+.gitignore
+node_modules
+vendor
+.env
+.env.local
+storage/logs/*.log
+storage/framework/cache
+storage/framework/sessions
+storage/framework/views
+tests
+*.md
+.vscode
+.idea
+docker-compose*.yml
+Makefile
