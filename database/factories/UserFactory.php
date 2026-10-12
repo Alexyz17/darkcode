@@ -42,4 +42,16 @@ class UserFactory extends Factory
             'email_verified_at' => null,
         ]);
     }
+
+    /** Cuenta con rol de administrador. */
+    public function admin(): static
+    {
+        return $this->state(fn (array $attributes) => ['role' => 'admin']);
+    }
+
+    /** Cuenta con acceso premium. */
+    public function premium(): static
+    {
+        return $this->state(fn (array $attributes) => ['role' => 'premium']);
+    }
 }

@@ -1,0 +1,41 @@
+# Entorno local completo: aplicación + PostgreSQL.
+#   cp .env.example .env
+#   docker compose run --rm app php artisan key:generate --show   # copia la clave en APP_KEY del .env
+#   docker compose up --build
+# La aplicación queda en http://localhost:8080
+services:
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    env_file: .env
+    environment:
+      APP_ENV: local
+      APP_URL: http://localhost:8080
+      DB_CONNECTION: pgsql
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_DATABASE: darkcode
+      DB_USERNAME: darkcode
+      DB_PASSWORD: darkcode
+      SESSION_DRIVER: database
+      MAIL_MAILER: log
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: darkcode
+      POSTGRES_USER: darkcode
+      POSTGRES_PASSWORD: darkcode
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U darkcode -d darkcode"]
+      interval: 5s
+      retries: 10
+
+volumes:
+  pgdata:

@@ -57,14 +57,13 @@ class SocialAuthController extends Controller
             }
         } else {
             // Create a new user
-            $adminEmails = ['alexvillar10@gmail.com'];
 
             $user = User::create([
                 'name'      => $googleUser->getName() ?? $googleUser->getNickname() ?? 'Usuario',
                 'email'     => $googleUser->getEmail(),
                 'google_id' => $googleUser->getId(),
                 'password'  => \Illuminate\Support\Facades\Hash::make(Str::random(32)),
-                'role'      => in_array($googleUser->getEmail(), $adminEmails) ? 'admin' : 'user',
+                'role'      => 'user',
             ]);
         }
 

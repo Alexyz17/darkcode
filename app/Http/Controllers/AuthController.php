@@ -47,13 +47,12 @@ class AuthController extends Controller
             'password' => ['required', 'confirmed', Password::min(8)],
         ]);
 
-        $adminEmails = ['alexvillar10@gmail.com'];
 
         $user = User::create([
             'name'     => $data['name'],
             'email'    => $data['email'],
             'password' => Hash::make($data['password']),
-            'role'     => in_array($data['email'], $adminEmails) ? 'admin' : 'user',
+            'role'     => 'user',
         ]);
 
         Auth::login($user);

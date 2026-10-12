@@ -1,58 +1,102 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# darkcode
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Plataforma full stack para aprender programación en español, hecha con **Laravel 13, Inertia y React 19 (TypeScript)**. Incluye cuentas de usuario con roles, lecciones, minijuegos con puntuaciones y ranking semanal, y un panel de administración.
 
-## About Laravel
+> El contenido de los cursos sigue vivo, gratis y abierto en **[Aprende a Programar](https://alexvillar10.gitlab.io/aprende-a-programar/)**, una versión estática derivada de este proyecto. Este repositorio conserva la aplicación completa con backend como proyecto de portfolio.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Qué demuestra este proyecto
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+| Área | Implementación |
+| --- | --- |
+| Autenticación | Registro, login con "recordarme", cierre de sesión con regeneración de sesión y token CSRF |
+| OAuth | Login con Google mediante Laravel Socialite, con vinculación de cuentas existentes por email |
+| Recuperación de contraseña | Tokens aleatorios guardados con hash, caducidad de 60 minutos, invalidación tras el uso y respuesta genérica para no revelar qué emails existen |
+| Autorización | Roles `user`, `premium` y `admin`; middleware de administración; control de acceso al contenido en el servidor |
+| Juegos | Cuatro tipos (test, completar código, ordenar bloques, adivinar la salida); la corrección se hace en el servidor y las respuestas nunca se envían al navegador |
+| Ranking | Puntuación semanal agregada con consultas SQL (`SUM`, `GROUP BY`, `HAVING`) |
+| Integraciones | Webhook de pagos (Gumroad) autenticado con secreto compartido; emails transaccionales con Resend |
+| Frontend | React 19 + TypeScript + Tailwind CSS 4 con Inertia (sin API REST intermedia), i18n (es/ca/en), tema claro/oscuro |
+| SEO | Sitemap dinámico y datos estructurados JSON-LD por curso |
+| Calidad | 47 tests automatizados (PHPUnit) y CI en GitHub Actions y GitLab CI |
+| Despliegue | Docker, PostgreSQL en producción, desplegado en Railway |
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Arquitectura
 
-## Learning Laravel
-
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
-
-## Agentic Development
-
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
-
-```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+```text
+Navegador ── Inertia (React 19 + TS) ──▶ Laravel 13
+                                          ├── Controladores: Auth, Google OAuth, PasswordReset,
+                                          │   Game, Leaderboard, Admin, GumroadWebhook
+                                          ├── Middleware: auth, AdminMiddleware, throttle
+                                          ├── Modelos: User, Game, GameQuestion, GameScore
+                                          └── PostgreSQL (SQLite en local y en tests)
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+- **Inertia** permite escribir páginas React que reciben los datos como props desde los controladores, sin mantener una API aparte.
+- Las páginas viven en `resources/js/Pages`; las lecciones en `resources/js/Pages/Lecciones`.
+- Los juegos y sus preguntas se cargan con `database/seeders/GameSeeder.php`.
 
-## Contributing
+## Seguridad
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Durante la revisión del código para el portfolio corregí varios problemas, cada uno cubierto por un test:
 
-## Code of Conduct
+- **Escalada de privilegios en el registro.** El rol de administrador se asignaba automáticamente a un email escrito en el código, y el registro no verifica emails: cualquiera podía registrarse con esa dirección y obtener el panel de administración. Ahora nadie obtiene permisos de administración al registrarse; se conceden desde el servidor con `php artisan user:make-admin <email>`.
+- **Webhook sin protección si faltaba la configuración.** Si `GUMROAD_WEBHOOK_SECRET` no estaba definido, una petición sin token pasaba la comprobación (`null === null`). Ahora el webhook queda desactivado sin secreto y el token se compara con `hash_equals` para evitar ataques de tiempo.
+- **Fuerza bruta.** Límite de intentos en login, registro, recuperación de contraseña y envío de puntuaciones.
+- **Rutas de Inertia en Linux.** La configuración apuntaba a `js/pages` en minúsculas, lo que solo funcionaba en Windows; ahora apunta a `js/Pages`.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## Puesta en marcha
 
-## Security Vulnerabilities
+### Con Docker (recomendado)
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```bash
+cp .env.example .env
+docker compose run --rm app php artisan key:generate --show   # copia la clave en APP_KEY del .env
+docker compose up --build
+```
 
-## License
+Abre http://localhost:8080. Para darte permisos de administración después de registrarte:
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```bash
+docker compose exec app php artisan user:make-admin tu@email.com
+```
+
+### Sin Docker
+
+Requisitos: PHP 8.4, Composer y Node 22.
+
+```bash
+composer setup          # instala dependencias, crea .env, genera la clave, migra y compila el frontend
+php artisan db:seed --class=GameSeeder
+composer dev            # servidor, cola, logs y Vite a la vez
+```
+
+### Variables de entorno opcionales
+
+| Variable | Para qué |
+| --- | --- |
+| `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET` | Login con Google |
+| `RESEND_API_KEY`, `MAIL_MAILER=resend` | Envío real de emails (en local se escriben en el log) |
+| `GUMROAD_WEBHOOK_SECRET` | Activa el webhook de pagos (vacío = desactivado) |
+
+## Tests
+
+```bash
+php artisan test
+```
+
+```text
+tests/
+├── Feature/Auth/AuthenticationTest.php   login, errores, límite de intentos, logout
+├── Feature/Auth/RegistrationTest.php     registro, validación, duplicados, sin admin automático
+├── Feature/Auth/PasswordResetTest.php    envío del enlace, no enumeración, token válido/incorrecto/caducado
+├── Feature/Auth/GoogleLoginTest.php      alta, vinculación de cuentas y errores de OAuth (Socialite simulado)
+├── Feature/AdminTest.php                 acceso por rol, estadísticas, cambio de rol, validación
+├── Feature/GameTest.php                  listado, respuestas ocultas, puntuación, ordenar bloques, ranking semanal
+├── Feature/GumroadWebhookTest.php        token, secreto ausente, compra, reembolsos
+├── Feature/MakeAdminCommandTest.php      comando de administración
+└── Unit/UserTest.php                     permisos según el rol
+```
+
+## Autor
+
+[Alex Villar Gracia](https://alexvillar10.gitlab.io) · Desarrollador Full Stack (Laravel + React) · [LinkedIn](https://www.linkedin.com/in/alexvg20)

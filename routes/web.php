@@ -17,15 +17,15 @@ Route::get('/', fn () => Inertia::render('Home'));
 // Auth
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
-    Route::post('/login', [AuthController::class, 'login']);
+    Route::post('/login', [AuthController::class, 'login'])->middleware('throttle:5,1');
     Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
-    Route::post('/register', [AuthController::class, 'register']);
+    Route::post('/register', [AuthController::class, 'register'])->middleware('throttle:5,1');
 
     // Password reset
     Route::get('/forgot-password', [PasswordResetController::class, 'showForgotPassword'])->name('password.request');
-    Route::post('/forgot-password', [PasswordResetController::class, 'sendResetLink'])->name('password.email');
+    Route::post('/forgot-password', [PasswordResetController::class, 'sendResetLink'])->middleware('throttle:3,1')->name('password.email');
     Route::get('/reset-password/{token}', [PasswordResetController::class, 'showResetPassword'])->name('password.reset');
-    Route::post('/reset-password', [PasswordResetController::class, 'resetPassword'])->name('password.update');
+    Route::post('/reset-password', [PasswordResetController::class, 'resetPassword'])->middleware('throttle:5,1')->name('password.update');
 });
 
 // Google OAuth (no guest middleware — Socialite manages the redirect itself)
@@ -182,7 +182,7 @@ Route::prefix('lecciones')->name('lecciones.')->group(function () {
 Route::get('/juegos', [GameController::class, 'index'])->name('juegos');
 Route::get('/juegos/{slug}', [GameController::class, 'show'])->name('juegos.show');
 Route::get('/ranking', [LeaderboardController::class, 'index'])->name('ranking');
-Route::middleware('auth')->post('/juegos/{slug}/submit', [GameController::class, 'submit'])->name('juegos.submit');
+Route::middleware(['auth', 'throttle:30,1'])->post('/juegos/{slug}/submit', [GameController::class, 'submit'])->name('juegos.submit');
 
 // Webhooks (sin CSRF)
 Route::post('/webhooks/gumroad', [GumroadWebhookController::class, 'handle'])

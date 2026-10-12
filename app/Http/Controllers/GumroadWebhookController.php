@@ -14,8 +14,11 @@ class GumroadWebhookController extends Controller
     public function handle(Request $request)
     {
         // Verificar token secreto en la URL
-        $token = $request->query('token');
-        if ($token !== config('services.gumroad.webhook_secret')) {
+        $secret = (string) config('services.gumroad.webhook_secret');
+        $token  = (string) $request->query('token', '');
+
+        // Sin secreto configurado el webhook queda desactivado; hash_equals evita ataques de tiempo.
+        if ($secret === '' || ! hash_equals($secret, $token)) {
             Log::warning('Gumroad webhook: token inválido', ['ip' => $request->ip()]);
             return response('Unauthorized', 401);
         }
