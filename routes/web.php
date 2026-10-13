@@ -43,29 +43,6 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth', AdminMiddleware::class])->prefix('admin')->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('admin.index');
     Route::patch('/users/{user}/role', [AdminController::class, 'updateRole']);
-
-    Route::get('/env-check', function () {
-        $required = [
-            'APP_KEY', 'APP_URL', 'DB_CONNECTION',
-            'GOOGLE_CLIENT_ID', 'GOOGLE_CLIENT_SECRET',
-            'MAIL_MAILER', 'RESEND_API_KEY', 'MAIL_FROM_ADDRESS',
-        ];
-
-        $status = collect($required)->mapWithKeys(fn ($key) => [
-            $key => [
-                'set'   => ! empty(env($key)),
-                'value' => in_array($key, ['APP_KEY', 'GOOGLE_CLIENT_SECRET', 'RESEND_API_KEY'])
-                    ? (empty(env($key)) ? 'MISSING' : '***hidden***')
-                    : (empty(env($key)) ? 'MISSING' : env($key)),
-            ],
-        ]);
-
-        return response()->json([
-            'google_redirect_computed' => config('services.google.redirect'),
-            'mail_mailer'              => config('mail.default'),
-            'env_vars'                 => $status,
-        ]);
-    })->name('admin.env-check');
 });
 
 // Páginas públicas

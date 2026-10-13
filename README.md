@@ -4,6 +4,14 @@ Plataforma full stack para aprender programación en español, hecha con **Larav
 
 > El contenido de los cursos sigue vivo, gratis y abierto en **[Aprende a Programar](https://alexvillar10.gitlab.io/aprende-a-programar/)**, una versión estática derivada de este proyecto. Este repositorio conserva la aplicación completa con backend como proyecto de portfolio.
 
+## Capturas
+
+| Juegos con ranking semanal | Ranking por juego |
+| --- | --- |
+| ![Listado de juegos con el top 3 de la semana](docs/capturas/juegos.png) | ![Ranking semanal con filtro por juego](docs/capturas/ranking.png) |
+
+![Lección de Laravel con índice de módulos](docs/capturas/leccion.png)
+
 ## Qué demuestra este proyecto
 
 | Área | Implementación |
@@ -18,7 +26,7 @@ Plataforma full stack para aprender programación en español, hecha con **Larav
 | Frontend | React 19 + TypeScript + Tailwind CSS 4 con Inertia (sin API REST intermedia), i18n (es/ca/en), tema claro/oscuro |
 | SEO | Sitemap dinámico y datos estructurados JSON-LD por curso |
 | Calidad | 47 tests automatizados (PHPUnit) y CI en GitHub Actions y GitLab CI |
-| Despliegue | Docker, PostgreSQL en producción, desplegado en Railway |
+| Despliegue | Docker y Docker Compose con PostgreSQL; estuvo en producción en Railway (Dockerfile + `railway.json`) |
 
 ## Arquitectura
 
