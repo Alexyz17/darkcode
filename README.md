@@ -2,7 +2,7 @@
 
 Plataforma full stack para aprender programación en español, hecha con **Laravel 13, Inertia y React 19 (TypeScript)**. Incluye cuentas de usuario con roles, lecciones, minijuegos con puntuaciones y ranking semanal, y un panel de administración.
 
-> El contenido de los cursos sigue vivo, gratis y abierto en **[Aprende a Programar](https://alexvillar10.gitlab.io/aprende-a-programar/)**, una versión estática derivada de este proyecto. Este repositorio conserva la aplicación completa con backend como proyecto de portfolio.
+> Proyecto de portfolio de [Alex Villar Gracia](https://alexvillar10.gitlab.io): una aplicación completa con backend, pensada para mostrar cómo diseño, protejo y pruebo una aplicación Laravel + React de punta a punta.
 
 ## Capturas
 
